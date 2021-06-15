@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Ranking {
-    File savedHashMaps = new File("ranking.list");
+    File savedHashMaps = new File("ranking.ser");
     Map<Integer, String> map = new HashMap<>();
     TextArea rankingText = new TextArea();
 

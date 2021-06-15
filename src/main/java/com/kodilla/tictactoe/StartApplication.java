@@ -18,7 +18,7 @@ public class StartApplication extends Application {
 
     private Stage windowStart;
     private TicTacToe ticTacToe = new TicTacToe();
-    File savedGame = new File("SavedGame.list");
+    File savedGame = new File("SavedGame.ser");
     private Ranking ranking = new Ranking();
 
 
