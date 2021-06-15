@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class Inform {
 
-    public static void endGame(boolean userWon) {
+    public static void endGame(String result) {
         Stage windowEndGame = new Stage();
         windowEndGame.initModality(Modality.APPLICATION_MODAL);
         windowEndGame.setTitle("EndGame");
@@ -25,10 +25,7 @@ public class Inform {
 
         Label label = new Label();
         label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        if(userWon)
-            label.setText("You won!");
-        else
-            label.setText("You lost!");
+        label.setText(result);
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label);
@@ -37,7 +34,6 @@ public class Inform {
 
         Scene scene = new Scene(layout);
 
-        windowEndGame.setTitle("TicTacToe");
         windowEndGame.setScene(scene);
         windowEndGame.show();
     }

@@ -1,25 +1,31 @@
 package com.kodilla.tictactoe;
 
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class Tiles {
+import java.io.Serializable;
+
+public class Tiles implements Serializable {
     private boolean marked;
     private char mark;
-    private int positionX;
-    private int positionY;
-    private Button button;
-    private ImageView imageO = new ImageView(new Image("file:src/main/resources/o.jpg"));
-    private ImageView imageX = new ImageView(new Image("file:src/main/resources/x.jpg"));
+    private final int positionX;
+    private final int positionY;
+    private transient Button button;
+    private transient final ImageView imageO = new ImageView(new Image("file:src/main/resources/o.jpg"));
+    private transient final ImageView imageX = new ImageView(new Image("file:src/main/resources/x.jpg"));
+    private transient final Stage windowGame;
 
     public Tiles(int positionX, int positionY, Stage windowGame) {
         this.positionX = positionX;
         this.positionY = positionY;
+        this.windowGame = windowGame;
         button = new Button();
         button.setGraphic(new ImageView(new Image("file:src/main/resources/button.jpg")));
-        handleSettingAction(windowGame);
+        handleSettingAction();
         marked = false;
     }
 
@@ -49,24 +55,37 @@ public class Tiles {
         button.setGraphic(imageO);
     }
 
-    public void handleSettingAction(Stage windowGame) {
+    public void markTileX() {
+        mark = 'X';
+        marked = true;
+        button.setGraphic(imageX);
+    }
+
+    public void handleSettingAction() {
         button.setOnAction(event -> {
             if(!marked) {
-                mark = 'X';
-                marked = true;
-                button.setGraphic(imageX);
-                if(CheckMove.areThreeOInRow(mark)) {
-                    windowGame.close();
-                    Inform.endGame(true);
+                markTileX();
+                if(CheckMove.areThreeInRow(mark)) {
+                    end("You won!");
+                }
+                else if(CheckMove.howManyMovesWereMade() < 9){
+                    ComputerMove.move();
+                    if(CheckMove.areThreeInRow('O')) {
+                        end("You lost!");
+                    }
                 }
                 else {
-                    ComputerMove.move();
-                    if(CheckMove.areThreeOInRow('O')) {
-                        windowGame.close();
-                        Inform.endGame(false);
-                    }
+                    end("Draw");
                 }
             }
         });
+    }
+
+    public void end(String result) {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished( event -> windowGame.close() );
+        delay.play();
+        CheckMove.setHowManyMarked();
+        Inform.endGame(result);
     }
 }

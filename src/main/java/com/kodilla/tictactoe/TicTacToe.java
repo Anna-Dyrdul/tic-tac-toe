@@ -5,16 +5,17 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TicTacToe {
+public class TicTacToe implements Serializable {
     private final List<Tiles> tilesList = new ArrayList<>();
-    private GridPane grid;
-    private Stage windowGame = new Stage();
+    private static GridPane grid;
+    private final transient Stage windowGame = new Stage();
+
 
     public void startGame() {
-
         grid = new GridPane();
 
         CheckMove.loadList(tilesList);
@@ -38,6 +39,10 @@ public class TicTacToe {
                 k++;
             }
         }
+    }
+
+    public List<Tiles> getTilesList() {
+        return tilesList;
     }
 
 }

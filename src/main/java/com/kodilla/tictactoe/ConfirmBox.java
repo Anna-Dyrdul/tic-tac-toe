@@ -36,10 +36,10 @@ public class ConfirmBox {
         });
 
 
-        VBox layout = new VBox(10);
+        VBox layout = new VBox(15);
         layout.getChildren().addAll(label, yesButton, noButton);
         layout.setAlignment(Pos.CENTER);
-        layout.setPadding(new Insets(10,10,10,10));
+        layout.setPadding(new Insets(15,15,15,15));
         layout.setBackground(new Background(new BackgroundFill(Color.BURLYWOOD, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Scene scene = new Scene(layout);
