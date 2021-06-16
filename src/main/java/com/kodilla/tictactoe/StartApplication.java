@@ -18,7 +18,7 @@ public class StartApplication extends Application {
 
     private Stage windowStart;
     private TicTacToe ticTacToe = new TicTacToe();
-    File savedGame = new File("SavedGame.ser");
+    private File savedGame = new File("SavedGame.ser");
     private Ranking ranking = new Ranking();
 
 
@@ -59,7 +59,6 @@ public class StartApplication extends Application {
         startNewGame.setOnAction(e -> {
             ticTacToe = new TicTacToe();
             ticTacToe.startGame();
-            ranking.saveMap();
             saveGame();
         });
 
@@ -67,7 +66,6 @@ public class StartApplication extends Application {
         continueGame.setOnAction(e -> {
             loadGame();
             ticTacToe.startGame();
-            ranking.saveMap();
             saveGame();
         });
 
@@ -80,6 +78,7 @@ public class StartApplication extends Application {
     }
 
     private void closeProgram(){
+        ranking.saveMap();
         boolean answer = ConfirmBox.confirm();
         if(answer)
             windowStart.close();

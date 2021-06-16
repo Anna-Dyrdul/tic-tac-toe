@@ -33,6 +33,7 @@ public class LevelOfDifficulty {
         levelOne.setOnAction(e -> {
             levelOfDifficulty = 1;
             ComputerMove.loadDifficulty(levelOfDifficulty);
+            CheckMove.setDifficulty(1);
             window.close();
         });
 
@@ -40,6 +41,7 @@ public class LevelOfDifficulty {
         levelTwo.setOnAction(e -> {
             levelOfDifficulty = 2;
             ComputerMove.loadDifficulty(levelOfDifficulty);
+            CheckMove.setDifficulty(2);
             window.close();
         });
 

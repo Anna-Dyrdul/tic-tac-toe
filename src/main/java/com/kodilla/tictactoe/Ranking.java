@@ -13,14 +13,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Ranking {
-    File savedHashMaps = new File("ranking.ser");
-    Map<Integer, String> map = new HashMap<>();
-    TextArea rankingText = new TextArea();
+    private File savedHashMaps = new File("ranking.ser");
+    private Map<LocalDate, String> map = new HashMap<>();
+    private TextArea rankingText = new TextArea();
 
     public void openWindow() {
         Stage window = new Stage();
@@ -43,7 +43,7 @@ public class Ranking {
 
     // Zapis do pliku z rankingiem powinien następować po każdej zakończonej partii.
     public void saveMap() {
-        map = CheckMove.sendMap();
+        map.putAll(CheckMove.sendMap());
         try {
             ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedHashMaps));
             oos.writeObject(map);

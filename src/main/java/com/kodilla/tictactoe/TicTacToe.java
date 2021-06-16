@@ -41,8 +41,4 @@ public class TicTacToe implements Serializable {
         }
     }
 
-    public List<Tiles> getTilesList() {
-        return tilesList;
-    }
-
 }

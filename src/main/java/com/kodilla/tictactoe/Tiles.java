@@ -14,10 +14,10 @@ public class Tiles implements Serializable {
     private char mark;
     private final int positionX;
     private final int positionY;
-    private transient Button button;
-    private transient final ImageView imageO = new ImageView(new Image("file:src/main/resources/o.jpg"));
-    private transient final ImageView imageX = new ImageView(new Image("file:src/main/resources/x.jpg"));
-    private transient final Stage windowGame;
+    private  Button button; //transient???
+    private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o.jpg"));
+    private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x.jpg"));
+    private final Stage windowGame;
 
     public Tiles(int positionX, int positionY, Stage windowGame) {
         this.positionX = positionX;

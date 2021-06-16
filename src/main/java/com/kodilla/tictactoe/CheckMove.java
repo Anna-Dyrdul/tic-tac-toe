@@ -10,8 +10,8 @@ public class CheckMove {
     private static int roundsWhichUserWon = 0;
     private static int roundsWhichUserLost = 0;
     private static int howManyMarked = 0;
-    private static Map<Integer, String> map = new HashMap<>();
-    private static int index = 0;
+    private static int difficulty = 1;
+    private static Map<LocalDate, String> map = new HashMap<>();
 
     public static boolean areThreeInRow(char mark) {
         howManyMarked++;
@@ -62,13 +62,15 @@ public class CheckMove {
         howManyMarked = 0;
     }
 
+    public static void setDifficulty(int level) {
+        difficulty = level;
+    }
 
-    public static Map<Integer, String> sendMap() {
+    public static Map<LocalDate, String> sendMap() {
         if(roundsWhichUserWon != 0 || roundsWhichUserLost != 0)
-        map.put(index, "User won: " + roundsWhichUserWon
+        map.put(LocalDate.now(), "User won: " + roundsWhichUserWon
                 + " | User lost: "+ roundsWhichUserLost
-                + " | Date: " + LocalDate.now() + "\n");
-        index++;
+                + "| Level of difficulty: "+ difficulty + "\n");
         return map;
     }
 }
