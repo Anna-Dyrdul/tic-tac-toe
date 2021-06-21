@@ -13,14 +13,11 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.Objects;
 
 public class StartApplication extends Application {
 
     private Stage windowStart;
-    private TicTacToe ticTacToe = new TicTacToe();
-    private File savedGame = new File("SavedGame.ser");
-    private Ranking ranking = new Ranking();
-
 
     public static void main(String[] args) {
         launch(args);
@@ -50,26 +47,28 @@ public class StartApplication extends Application {
         Button chooseDifficulty = new Button("Chose difficulty");
         chooseDifficulty.setOnAction(e -> LevelOfDifficulty.chooseDifficulty());
 
+
         Button showRanking = new Button("Show ranking");
         showRanking.setOnAction(e -> {
-            ranking.loadMap();
+            ShowRanking.openWindow(Ranking.loadMap());
         });
 
         Button startNewGame = new Button("Start new game");
         startNewGame.setOnAction(e -> {
-            ticTacToe = new TicTacToe();
-            ticTacToe.startGame();
-            saveGame();
+            TicTacToe ticTacToe = new TicTacToe();
+            CheckMove.loadMap(Ranking.loadMap());
+            ticTacToe.startGame(false);
         });
+
 
         Button continueGame = new Button("Continue");
         continueGame.setOnAction(e -> {
-            loadGame();
-            ticTacToe.startGame();
-            saveGame();
+            TicTacToe ticTacToe = new TicTacToe();
+            CheckMove.loadMap(Ranking.loadMap());
+            ticTacToe.startGame(true);
         });
 
-        vBox.getChildren().addAll(title, startNewGame, continueGame, showRules, chooseDifficulty, showRanking);
+        vBox.getChildren().addAll(title, startNewGame, showRules, chooseDifficulty, showRanking, continueGame);
         Scene scene = new Scene(vBox, 250, 250, Color.WHITE);
 
         windowStart.setTitle("TicTacToe");
@@ -78,34 +77,12 @@ public class StartApplication extends Application {
     }
 
     private void closeProgram(){
-        ranking.saveMap();
         boolean answer = ConfirmBox.confirm();
-        if(answer)
+        if(answer) {
             windowStart.close();
-    }
-
-    public void saveGame() {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedGame));
-            oos.writeObject(ticTacToe);
-            oos.close();
-            System.out.println("Saved!");
-        } catch (Exception e) {
-            System.out.println("Oh no! Something went wrong! Error:" + e);
         }
     }
 
-    public void loadGame() {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(savedGame));
-            Object readObject = ois.readObject();
-            if(savedGame.length() != 0)
-                ticTacToe =(TicTacToe) readObject;
-            ois.close();
-            System.out.println("Load");
-        } catch (Exception e) {
-            System.out.println("Oh no! Something went wrong! Error:" + e);
-        }
-    }
+
 
 }

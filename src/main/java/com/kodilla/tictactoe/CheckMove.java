@@ -11,7 +11,7 @@ public class CheckMove {
     private static int roundsWhichUserLost = 0;
     private static int howManyMarked = 0;
     private static int difficulty = 1;
-    private static Map<LocalDate, String> map = new HashMap<>();
+    private static Map<Long, String> map;
 
     public static boolean areThreeInRow(char mark) {
         howManyMarked++;
@@ -66,11 +66,53 @@ public class CheckMove {
         difficulty = level;
     }
 
-    public static Map<LocalDate, String> sendMap() {
-        if(roundsWhichUserWon != 0 || roundsWhichUserLost != 0)
-        map.put(LocalDate.now(), "User won: " + roundsWhichUserWon
-                + " | User lost: "+ roundsWhichUserLost
-                + "| Level of difficulty: "+ difficulty + "\n");
+    public static void loadMap(Map<Long, String> loadMap) {
+        map = loadMap;
+    }
+
+    public static Map<Long, String> addToMap() {
+        if(roundsWhichUserWon != 0 || roundsWhichUserLost != 0) {
+            map.put(System.currentTimeMillis(), LocalDate.now() + " | User won: " + roundsWhichUserWon
+                    + " | User lost: " + roundsWhichUserLost
+                    + " | Level of difficulty: " + difficulty + "\n");
+        }
         return map;
     }
+
+    public static List<Tiles> getListOfTiles() {
+        return listOfTiles;
+    }
+
+    public static int getRoundsWhichUserWon() {
+        return roundsWhichUserWon;
+    }
+
+    public static int getRoundsWhichUserLost() {
+        return roundsWhichUserLost;
+    }
+
+    public static int getHowManyMarked() {
+        return howManyMarked;
+    }
+
+    public static int getDifficulty() {
+        return difficulty;
+    }
+
+    public static void setListOfTiles(List<Tiles> listOfTiles) {
+        CheckMove.listOfTiles = listOfTiles;
+    }
+
+    public static void setRoundsWhichUserWon(int roundsWhichUserWon) {
+        CheckMove.roundsWhichUserWon = roundsWhichUserWon;
+    }
+
+    public static void setRoundsWhichUserLost(int roundsWhichUserLost) {
+        CheckMove.roundsWhichUserLost = roundsWhichUserLost;
+    }
+
+    public static void setHowManyMarked(int howManyMarked) {
+        CheckMove.howManyMarked = howManyMarked;
+    }
+
 }
