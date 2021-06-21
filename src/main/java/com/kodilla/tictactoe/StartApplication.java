@@ -12,8 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.io.*;
-import java.util.Objects;
 
 public class StartApplication extends Application {
 
@@ -49,9 +47,7 @@ public class StartApplication extends Application {
 
 
         Button showRanking = new Button("Show ranking");
-        showRanking.setOnAction(e -> {
-            ShowRanking.openWindow(Ranking.loadMap());
-        });
+        showRanking.setOnAction(e -> ShowRanking.openWindow(Ranking.loadMap()));
 
         Button startNewGame = new Button("Start new game");
         startNewGame.setOnAction(e -> {
@@ -68,7 +64,7 @@ public class StartApplication extends Application {
             ticTacToe.startGame(true);
         });
 
-        vBox.getChildren().addAll(title, startNewGame, showRules, chooseDifficulty, showRanking, continueGame);
+        vBox.getChildren().addAll(title, startNewGame, continueGame, showRules, chooseDifficulty, showRanking);
         Scene scene = new Scene(vBox, 250, 250, Color.WHITE);
 
         windowStart.setTitle("TicTacToe");

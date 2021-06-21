@@ -15,8 +15,8 @@ public class Tiles implements Serializable {
         marked = false;
     }
 
-    public boolean getMarked() {
-        return marked;
+    public boolean getNotMarked() {
+        return !marked;
     }
 
     public int getPositionX() {

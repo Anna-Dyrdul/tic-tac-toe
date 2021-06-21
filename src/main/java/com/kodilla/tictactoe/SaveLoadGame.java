@@ -4,7 +4,7 @@ import java.io.*;
 
 public class SaveLoadGame {
 
-    private static File savedGame = new File("SavedGame.ser");
+    private static final File savedGame = new File("SavedGame.ser");
 
     public static void saveGame(StateOfTheGame stateOfTheGame) {
         try {

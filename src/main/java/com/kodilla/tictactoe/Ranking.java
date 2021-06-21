@@ -12,8 +12,7 @@ public class Ranking {
         try {
             ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(savedHashMaps));
             oos.writeObject(mapToSave);
-            //System.out.println("Map saved");
-            //System.out.println(mapToSave.values());
+            System.out.println("Map saved");
             oos.close();
         } catch (Exception e) {
             System.out.println("Oh no! Something went wrong with saving! Error:" + e);
@@ -26,8 +25,7 @@ public class Ranking {
             Object readMap = ois.readObject();
             if(readMap instanceof HashMap) {
                 Map<Long, String> map = new HashMap<>((HashMap) readMap);
-                //System.out.println("Ranking load");
-                //System.out.println(map.values());
+                System.out.println("Ranking load");
                 return map;
             }
             ois.close();

@@ -12,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
 import java.util.Map;
 
 public class ShowRanking {

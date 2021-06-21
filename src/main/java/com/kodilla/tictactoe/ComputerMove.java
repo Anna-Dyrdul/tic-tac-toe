@@ -1,7 +1,5 @@
 package com.kodilla.tictactoe;
 
-import javafx.scene.control.Button;
-
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +22,7 @@ public class ComputerMove {
 
         do {
             index = generator.nextInt(9);
-            if(!listOfTiles.get(index).getMarked()) {
+            if(listOfTiles.get(index).getNotMarked()) {
                 listOfTiles.get(index).markTileO();
                 moved = true;
             }
@@ -36,17 +34,24 @@ public class ComputerMove {
     public static int moveLevelTwo() {
         boolean moved = false;
         int result = 10;
-        for(int i = 0; i < 9; i += 2) {
-            if(!listOfTiles.get(i).getMarked()) {
-                listOfTiles.get(i).markTileO();
-                moved = true;
-                result = i;
-                break;
+        if(listOfTiles.get(4).getNotMarked()) {
+            listOfTiles.get(4).markTileO();
+            moved = true;
+            result = 4;
+        } else {
+            for(int i = 0; i < 9; i += 2) {
+                if(listOfTiles.get(i).getNotMarked()) {
+                    listOfTiles.get(i).markTileO();
+                    moved = true;
+                    result = i;
+                    break;
+                }
             }
         }
+
         if(!moved) {
             for(int i = 1; i < 9; i += 2) {
-                if(!listOfTiles.get(i).getMarked()) {
+                if(listOfTiles.get(i).getNotMarked()) {
                     listOfTiles.get(i).markTileO();
                     result = i;
                     break;

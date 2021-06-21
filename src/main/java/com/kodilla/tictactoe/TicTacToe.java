@@ -20,16 +20,10 @@ public class TicTacToe implements EventHandler<ActionEvent> {
     private final List<Button> buttonList = new ArrayList<>();
     private static GridPane grid;
     private final transient Stage windowGame = new Stage();
-    private StateOfTheGame stateOfTheGame;
-    private boolean continuing;
     private static String outcome = "";
-    //private final ImageView imageX = new ImageView(new Image("file:src/main/resources/x.jpg"));
-    //private final ImageView imageO = new ImageView(new Image("file:src/main/resources/o.jpg"));
 
     public void startGame(boolean continuing) {
         grid = new GridPane();
-
-        this.continuing = continuing;
 
         windowGame.setOnCloseRequest(e -> {
             StateOfTheGame newStateOfTheGame = new StateOfTheGame();
@@ -37,7 +31,7 @@ public class TicTacToe implements EventHandler<ActionEvent> {
         });
 
         createButtons();
-        if(continuing && outcome == "")
+        if(continuing && outcome.equals(""))
             continueGame();
         else {
             outcome = "";
@@ -61,7 +55,6 @@ public class TicTacToe implements EventHandler<ActionEvent> {
                 tilesList.add(new Tiles(i,j));
                 buttonList.add(new Button());
                 grid.add(buttonList.get(k), i, j, 1, 1);
-                //buttonList.get(k).setGraphic(new ImageView(new Image("file:src/main/resources/button.jpg")));
                 buttonList.get(k).setFont(Font.font("Arial", FontWeight.BOLD, 40));
                 buttonList.get(k).setPrefSize(150,150);
                 buttonList.get(k).setOnAction(this);
@@ -71,7 +64,8 @@ public class TicTacToe implements EventHandler<ActionEvent> {
     }
 
     public void continueGame() {
-        stateOfTheGame = SaveLoadGame.loadGame();
+        StateOfTheGame stateOfTheGame = SaveLoadGame.loadGame();
+        assert stateOfTheGame != null;
         CheckMove.setDifficulty(stateOfTheGame.getDifficulty());
         CheckMove.setHowManyMarked(stateOfTheGame.getHowManyMarked());
         tilesList = stateOfTheGame.getListOfTiles();
@@ -91,9 +85,8 @@ public class TicTacToe implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         for(int i = 0; i<9; i++) {
             if(event.getSource() == buttonList.get(i)) {
-                if (!tilesList.get(i).getMarked()) {
+                if (tilesList.get(i).getNotMarked()) {
                     tilesList.get(i).markTileX();
-                    //buttonList.get(i).setGraphic(imageX);
                     buttonList.get(i).setText("X");
                     if (CheckMove.areThreeInRow('X')) {
                         end("You won!");
@@ -101,7 +94,6 @@ public class TicTacToe implements EventHandler<ActionEvent> {
                         int index = ComputerMove.move();
                         tilesList.get(index).markTileO();
                         buttonList.get(index).setText("O");
-                        //buttonList.get(index).setGraphic(imageO);
                         if (CheckMove.areThreeInRow('O')) {
                             end("You lost!");
                         }

@@ -1,16 +1,15 @@
 package com.kodilla.tictactoe;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CheckMove {
     private static List<Tiles> listOfTiles;
-    private static int roundsWhichUserWon = 0;
-    private static int roundsWhichUserLost = 0;
-    private static int howManyMarked = 0;
-    private static int difficulty = 1;
+    private static int roundsWhichUserWon;
+    private static int roundsWhichUserLost;
+    private static int howManyMarked;
+    private static int difficulty;
     private static Map<Long, String> map;
 
     public static boolean areThreeInRow(char mark) {
